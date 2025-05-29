@@ -36,15 +36,6 @@ const getAllSchedules = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-const getSingleSchedule = async (
-  scheduleId: string,
-): Promise<ISchedule | null> => {
-  const result = await Schedule.findById(scheduleId)
-    .populate('trainer', 'name email role')
-    .populate('trainees', 'name email role');
-  return result;
-};
-
 const deleteSchedule = catchAsync(async (req: Request, res: Response) => {
   const scheduleId = req.params.scheduleId;
   await scheduleService.deleteSchedule(scheduleId);
@@ -59,6 +50,5 @@ const deleteSchedule = catchAsync(async (req: Request, res: Response) => {
 export const scheduleController = {
   createSchedule,
   getAllSchedules,
-  getSingleSchedule,
   deleteSchedule,
 };
